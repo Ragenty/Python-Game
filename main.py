@@ -1,18 +1,16 @@
 # Imports
 import pygame
 import sys
-import math
 
 # Constants
-WINDOW_WIDTH = 320
-WINDOW_HEIGHT = 180
+WINDOW_WIDTH = 1320
+WINDOW_HEIGHT = 780
 
 # Initialize Pygame
 pygame.init()
 
-# Set up the display
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.NOFRAME)
-
+# Set up the display with only RESIZABLE flag
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Game")
 
 # Main loop
