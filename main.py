@@ -5,6 +5,10 @@ import sys
 # Constants
 WINDOW_WIDTH = 1320
 WINDOW_HEIGHT = 780
+floor_height = 50
+floor_y_position = WINDOW_HEIGHT - floor_height
+BROWN = (139, 69, 19)
+BEIGE = (237,232,208)
 
 # Initialize Pygame
 pygame.init()
@@ -20,12 +24,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Close the window when clicking the "X"
             running = False
-<<<<<<< HEAD
-
-=======
             
->>>>>>> 981c21cc258f4212bfa2ab18a1b343b5256c8314
-    screen.fill((255, 255, 255))
+    screen.fill(BEIGE)
+    pygame.draw.rect(screen, BROWN, (0, floor_y_position -50, WINDOW_WIDTH, floor_height))
 
     # Update the display
     pygame.display.flip()
