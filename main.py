@@ -20,7 +20,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Close the window when clicking the "X"
             running = False
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 981c21cc258f4212bfa2ab18a1b343b5256c8314
     screen.fill((255, 255, 255))
 
     # Update the display
