@@ -16,7 +16,7 @@ JUMP_HEIGHT = PLAYER_HEIGHT * 10  # Desired jump height
 MOVE_SPEED = 0.75  # Reduced movement speed for 25% slower horizontal movement
 
 # Set gravity to make the player fall 0.5 of their height per second
-GRAVITY = 0.005 # Fall rate is 0.5 times the player height per second
+GRAVITY = 0.005 
 JUMP_STRENGTH = math.sqrt(0.5 * GRAVITY * JUMP_HEIGHT)  # Calculate jump velocity
 
 # Initialize Pygame
@@ -32,6 +32,7 @@ player_y = INITIAL_WINDOW_HEIGHT // 2 - PLAYER_HEIGHT // 2
 velocity_y = 0
 velocity_x = 0
 on_floor = False  # Boolean to check if player is on the floor
+jump_count = 0  # Counter for jumps
 
 # Main loop
 running = True
@@ -44,10 +45,12 @@ while running:
             # Update the window size
             screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
         elif event.type == pygame.KEYDOWN:
-            # Jump with space, up arrow, or W if on the floor
-            if (event.key == pygame.K_SPACE or event.key == pygame.K_w or event.key == pygame.K_UP) and on_floor:
-                velocity_y = -JUMP_STRENGTH  # Negative for upward jump
-                on_floor = False  # The player is now in the air
+            # Jump with space, up arrow, or W if allowed
+            if (event.key == pygame.K_SPACE or event.key == pygame.K_w or event.key == pygame.K_UP):
+                if on_floor or jump_count < 2:  # Allow jump if on floor or double jump
+                    velocity_y = -JUMP_STRENGTH  # Negative for upward jump
+                    on_floor = False  # Player is now in the air
+                    jump_count += 1  # Increase jump count
 
     # Handle continuous key presses for side-to-side movement
     keys = pygame.key.get_pressed()
@@ -81,6 +84,7 @@ while running:
         player_y = floor_y_position - PLAYER_HEIGHT  # Place player on the floor
         velocity_y = 0  # Stop falling
         on_floor = True  # Player is now on the floor
+        jump_count = 0  # Reset jump count on landing
 
     # Clear screen and draw background
     screen.fill(BEIGE)
