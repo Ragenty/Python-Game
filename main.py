@@ -16,7 +16,7 @@ JUMP_HEIGHT = PLAYER_HEIGHT * 10  # Desired jump height
 MOVE_SPEED = 0.75  # Reduced movement speed for 25% slower horizontal movement
 
 # Set gravity to make the player fall 0.5 of their height per second
-GRAVITY = 0.005 
+GRAVITY = 0.005
 JUMP_STRENGTH = math.sqrt(0.5 * GRAVITY * JUMP_HEIGHT)  # Calculate jump velocity
 
 # Initialize Pygame
@@ -33,6 +33,13 @@ velocity_y = 0
 velocity_x = 0
 on_floor = False  # Boolean to check if player is on the floor
 jump_count = 0  # Counter for jumps
+
+# World variables
+world_offset_x = 0  # Horizontal scroll offset
+world_offset_y = 0  # Vertical scroll offset
+
+# Floor segment size
+FLOOR_WIDTH = INITIAL_WINDOW_WIDTH * 5  # Make the floor large enough to repeat
 
 # Main loop
 running = True
@@ -73,6 +80,10 @@ while running:
     # Apply horizontal movement
     player_x += velocity_x  # Move player left/right based on velocity
 
+    # Update world offsets for infinite scrolling
+    world_offset_x = player_x - window_width // 2
+    world_offset_y = player_y - window_height // 2
+
     # Prevent player from moving out of window bounds
     if player_x < 0:
         player_x = 0
@@ -89,11 +100,13 @@ while running:
     # Clear screen and draw background
     screen.fill(BEIGE)
     
-    # Draw floor
-    pygame.draw.rect(screen, BROWN, (0, floor_y_position, window_width, floor_height))
-    
-    # Draw player rectangle in red
-    pygame.draw.rect(screen, RED, (player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT))
+    # Draw infinite floor (draw multiple segments of the floor that scroll with the world)
+    floor_x_position = world_offset_x % FLOOR_WIDTH  # Make the floor scroll infinitely
+    for i in range(-1, 2):  # Draw 3 floor segments to ensure continuity
+        pygame.draw.rect(screen, BROWN, (floor_x_position + i * FLOOR_WIDTH, floor_y_position - world_offset_y, FLOOR_WIDTH, floor_height))
+
+    # Draw player rectangle in red (offset the player position by the world offset)
+    pygame.draw.rect(screen, RED, (player_x - world_offset_x, player_y - world_offset_y, PLAYER_WIDTH, PLAYER_HEIGHT))
 
     # Update the display
     pygame.display.flip()
