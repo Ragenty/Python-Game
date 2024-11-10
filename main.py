@@ -6,17 +6,17 @@ import math
 # Constants
 INITIAL_WINDOW_WIDTH = 1320
 INITIAL_WINDOW_HEIGHT = 780
-FLOOR_HEIGHT_RATIO = 0.06  # Ratio of the floor height relative to the window height
+FLOOR_HEIGHT_RATIO = 0.06  # Ratio of the floor height relative to the window height 
 BROWN = (139, 69, 19)
 BEIGE = (237, 232, 208)
 RED = (255, 0, 0)
 PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
-JUMP_HEIGHT = PLAYER_HEIGHT * 3  # Desired jump height (3 times player height)
-MOVE_SPEED = 3.75  # Reduced movement speed for 25% slower horizontal movement
+JUMP_HEIGHT = PLAYER_HEIGHT * 10  # Desired jump height
+MOVE_SPEED = 0.75  # Reduced movement speed for 25% slower horizontal movement
 
 # Set gravity to make the player fall 0.5 of their height per second
-GRAVITY = 0.05 * PLAYER_HEIGHT  # Fall rate is 0.5 times the player height per second
+GRAVITY = 0.005 # Fall rate is 0.5 times the player height per second
 JUMP_STRENGTH = math.sqrt(0.5 * GRAVITY * JUMP_HEIGHT)  # Calculate jump velocity
 
 # Initialize Pygame
