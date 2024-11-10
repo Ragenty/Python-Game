@@ -8,6 +8,9 @@ INITIAL_WINDOW_HEIGHT = 780
 FLOOR_HEIGHT_RATIO = 0.06  # Ratio of the floor height relative to the window height
 BROWN = (139, 69, 19)
 BEIGE = (237, 232, 208)
+RED = (255, 0, 0)
+PLAYER_WIDTH = 50
+PLAYER_HEIGHT = 50
 
 # Initialize Pygame
 pygame.init()
@@ -32,9 +35,18 @@ while running:
     floor_height = int(window_height * FLOOR_HEIGHT_RATIO)
     floor_y_position = window_height - floor_height
 
-    # Clear screen and draw floor
+    # Calculate player position (centered horizontally and vertically)
+    player_x = (window_width - PLAYER_WIDTH) // 2
+    player_y = (window_height - PLAYER_HEIGHT) // 2  # Center vertically
+
+    # Clear screen and draw background
     screen.fill(BEIGE)
+    
+    # Draw floor
     pygame.draw.rect(screen, BROWN, (0, floor_y_position, window_width, floor_height))
+    
+    # Draw player rectangle in red
+    pygame.draw.rect(screen, RED, (player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT))
 
     # Update the display
     pygame.display.flip()
